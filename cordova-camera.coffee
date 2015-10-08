@@ -44,21 +44,31 @@ Polymer
 
   _media: (media) ->
     camera = navigator.camera
-    size = size.split "x"
+    size = size?.split? "x"
     options =
-      allowEdit: @allowEdit || false
-      cameraDirection: camera.Direction[@cameraDirection.toUpperCase()] || camera.Direction.BACK
-      destinationType: camera.DestinationType[@output.toUpperCase()] || camera.DestinationType.DATA_URL
-      encodingType: camera.EncodingType[@encoding.toUpperCase()] || camera.EncodingType.PNG
+      allowEdit: @allowEdit
+      cameraDirection: camera.Direction[@cameraDirection.toUpperCase()]
+      destinationType: camera.DestinationType[@output.toUpperCase()]
+      encodingType: camera.EncodingType[@encoding.toUpperCase()]
       mediaType: camera.MediaType[media.toUpperCase()] # it should be provided
-      quality: if 0 < @quality < 100 then @quality else 50
-      saveToPhotoAlbum: @saveToGallery || false
-      sourceType: camera.PictureSourceType[@source.toUpperCase()] || camera.PictureSourceType.CAMERA
-      targetHeight: size?[1] || undefined
-      targetWith: size?[0] || undefined
+      quality: @quality
+      saveToPhotoAlbum: @saveToGallery
+      sourceType: camera.PictureSourceType[@source.toUpperCase()]
+      targetHeight: size?[1]
+      targetWith: size?[0]
+
+    options.allowEdit ?= false
+    options.cameraDirection ?= camera.Direction.BACK
+    options.destinationType ?= camera.DestinationType.DATA_URL
+    options.encodingType ?= camera.EncodingType.PNG
+    options.quality = 50 if 0 > @quality < 100
+    options.saveToPhotoAlbum ?= false
+    options.sourceType ?= camera.PictureSourceType.CAMERA
+    options.targetHeight ?= undefined
+    options.targetWidth ?= undefined
 
     this.$.enabler.promise.then =>
-      navigator.camera.getPicture @_setMedia,
+      navigator.camera.getPicture ( (media) => @_setMedia media ),
         (@fire.bind this, "cordova-camera-error"),
         options
 

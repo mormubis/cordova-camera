@@ -22,6 +22,7 @@
         value: "png"
       },
       media: {
+        notify: true,
         readOnly: true,
         type: String
       },
@@ -35,7 +36,7 @@
         type: Number,
         value: 50
       },
-      saveAlbum: {
+      saveToGallery: {
         reflectToAttribute: true,
         type: Boolean,
         value: false
@@ -52,11 +53,65 @@
       }
     },
     _media: function(media) {
-      return navigator.camera.getPicture(this._setMedia, this.fire.bind(this, "cordova-camera-error"));
+      var camera, options, ref, size;
+      camera = navigator.camera;
+      size = size != null ? typeof size.split === "function" ? size.split("x") : void 0 : void 0;
+      options = {
+        allowEdit: this.allowEdit,
+        cameraDirection: camera.Direction[this.cameraDirection.toUpperCase()],
+        destinationType: camera.DestinationType[this.output.toUpperCase()],
+        encodingType: camera.EncodingType[this.encoding.toUpperCase()],
+        mediaType: camera.MediaType[media.toUpperCase()],
+        quality: this.quality,
+        saveToPhotoAlbum: this.saveToGallery,
+        sourceType: camera.PictureSourceType[this.source.toUpperCase()],
+        targetHeight: size != null ? size[1] : void 0,
+        targetWith: size != null ? size[0] : void 0
+      };
+      if (options.allowEdit == null) {
+        options.allowEdit = false;
+      }
+      if (options.cameraDirection == null) {
+        options.cameraDirection = camera.Direction.BACK;
+      }
+      if (options.destinationType == null) {
+        options.destinationType = camera.DestinationType.DATA_URL;
+      }
+      if (options.encodingType == null) {
+        options.encodingType = camera.EncodingType.PNG;
+      }
+      if ((0 > (ref = this.quality) && ref < 100)) {
+        options.quality = 50;
+      }
+      if (options.saveToPhotoAlbum == null) {
+        options.saveToPhotoAlbum = false;
+      }
+      if (options.sourceType == null) {
+        options.sourceType = camera.PictureSourceType.CAMERA;
+      }
+      if (options.targetHeight == null) {
+        options.targetHeight = void 0;
+      }
+      if (options.targetWidth == null) {
+        options.targetWidth = void 0;
+      }
+      return this.$.enabler.promise.then((function(_this) {
+        return function() {
+          return navigator.camera.getPicture((function(media) {
+            return _this._setMedia(media);
+          }), _this.fire.bind(_this, "cordova-camera-error"), options);
+        };
+      })(this));
     },
-    all: function() {},
-    photo: function() {},
-    video: function() {}
+    all: function() {
+      return this._media("allmedia");
+    },
+    photo: function() {
+      return this._media("picture");
+    },
+    video: function() {
+      return this._media("video");
+    }
   });
 
 }).call(this);
