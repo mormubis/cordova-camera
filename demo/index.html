@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>cordova-camera Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../cordova-camera.html">
+  </head>
+  <body unresolved>
+    <cordova-camera></cordova-camera>
+    <script>
+      var camera = document.querySelector('cordova-camera');
+
+      camera.on('media-changed', function(picture) {
+        document.write('photo');
+      });
+      camera.photo();
+    </script>
+  </body>
+</html>
