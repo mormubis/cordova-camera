@@ -3,49 +3,72 @@
   Polymer({
     is: "cordova-camera",
     properties: {
-      _media: {
-        type: String
-      },
+
+      /* Allow simple editing of image before selection. */
       allowEdit: {
         reflectToAttribute: true,
         type: Boolean,
         value: false
       },
+
+      /* Choose the camera to use ("front"- or "back"-facing). */
       cameraDirection: {
         reflectToAttribute: true,
         type: String,
         value: "back"
       },
+
+      /* Choose the format of the return value ("data_url", "file_uri" Android,
+         "native_uri" iOS).
+       */
+      destination: {
+        reflectToAttribute: true,
+        type: String,
+        value: "data_url"
+      },
+
+      /* Choose the returned image file's encoding ("png" or "jpeg"). */
       encoding: {
         reflectToAttribute: true,
         type: String,
         value: "png"
       },
+
+      /* Combination of targetWidth and targetHeight properties (i.e.: "100x80",
+         "100", "x80").
+       */
+      maxSize: {
+        observer: "_observeSize",
+        reflectToAttribute: true,
+        type: String
+      },
+
+      /* Result media */
       media: {
         notify: true,
         readOnly: true,
         type: String
       },
-      output: {
-        reflectToAttribute: true,
-        type: String,
-        value: "data_url"
-      },
+
+      /* Quality of the saved image, expressed as a range of 0-100, where 100 is
+      typically full resolution with no loss from file compression.
+       */
       quality: {
         reflectToAttribute: true,
         type: Number,
         value: 50
       },
+
+      /* Save the image to the photo album on the device after capture. */
       saveToGallery: {
         reflectToAttribute: true,
         type: Boolean,
         value: false
       },
-      size: {
-        observer: "_observeSize",
-        reflectToAttribute: true,
-        type: String
-      },
+
+      /* Set the source of the picture ("photolibrary", "camera",
+         "savedphotoalbum").
+       */
       source: {
         reflectToAttribute: true,
         type: String,
@@ -53,62 +76,45 @@
       }
     },
     _media: function(media) {
-      var camera, options, ref, size;
-      camera = navigator.camera;
-      size = size != null ? typeof size.split === "function" ? size.split("x") : void 0 : void 0;
+      var Camera, options, ref, setMedia, size;
+      Camera = navigator.camera;
+      size = (ref = this.maxSize) != null ? typeof ref.split === "function" ? ref.split("x") : void 0 : void 0;
       options = {
         allowEdit: this.allowEdit,
-        cameraDirection: camera.Direction[this.cameraDirection.toUpperCase()],
-        destinationType: camera.DestinationType[this.output.toUpperCase()],
-        encodingType: camera.EncodingType[this.encoding.toUpperCase()],
-        mediaType: camera.MediaType[media.toUpperCase()],
+        cameraDirection: Camera.Direction[this.cameraDirection.toUpperCase()],
+        destinationType: Camera.DestinationType[this.destination.toUpperCase()],
+        encodingType: Camera.EncodingType[this.encoding.toUpperCase()],
+        mediaType: Camera.MediaType[media.toUpperCase()],
         quality: this.quality,
         saveToPhotoAlbum: this.saveToGallery,
-        sourceType: camera.PictureSourceType[this.source.toUpperCase()],
+        sourceType: Camera.PictureSourceType[this.source.toUpperCase()],
         targetHeight: size != null ? size[1] : void 0,
         targetWith: size != null ? size[0] : void 0
       };
-      if (options.allowEdit == null) {
-        options.allowEdit = false;
-      }
-      if (options.cameraDirection == null) {
-        options.cameraDirection = camera.Direction.BACK;
-      }
-      if (options.destinationType == null) {
-        options.destinationType = camera.DestinationType.DATA_URL;
-      }
-      if (options.encodingType == null) {
-        options.encodingType = camera.EncodingType.PNG;
-      }
-      if ((0 > (ref = this.quality) && ref < 100)) {
-        options.quality = 50;
-      }
-      if (options.saveToPhotoAlbum == null) {
-        options.saveToPhotoAlbum = false;
-      }
-      if (options.sourceType == null) {
-        options.sourceType = camera.PictureSourceType.CAMERA;
-      }
-      if (options.targetHeight == null) {
-        options.targetHeight = void 0;
-      }
-      if (options.targetWidth == null) {
-        options.targetWidth = void 0;
-      }
-      return this.$.enabler.promise.then((function(_this) {
-        return function() {
-          return navigator.camera.getPicture((function(media) {
+      if (this.ready) {
+        setMedia = (function(_this) {
+          return function(media) {
+            if (_this.destination === "data_url") {
+              media = "data:image/jpeg;base64," + media;
+            }
             return _this._setMedia(media);
-          }), _this.fire.bind(_this, "cordova-camera-error"), options);
-        };
-      })(this));
+          };
+        })(this);
+        return navigator.camera.getPicture(setMedia, this.fire.bind(this, "cordova-camera-error"), options);
+      }
     },
+
+    /* Allow selection from all media types. */
     all: function() {
       return this._media("allmedia");
     },
+
+    /* Allow selection of still pictures only. */
     photo: function() {
       return this._media("picture");
     },
+
+    /* Allow selection of video only. */
     video: function() {
       return this._media("video");
     }

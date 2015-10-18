@@ -1,21 +1,45 @@
 <!doctype html>
 <html>
   <head>
+    <!-- META -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <!-- TITLE -->
     <title>cordova-camera Demo</title>
+
+    <!-- COMPONENT -->
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../bower_components/font-roboto/roboto.html">
     <link rel="import" href="../cordova-camera.html">
   </head>
   <body unresolved>
+    <style>
+      body {
+        font-family: Roboto, sans-serif;
+      }
+    </style>
     <cordova-camera></cordova-camera>
+    <section>
+      <header>
+        <h1>Camera access</h1>
+      </header>
+      <main>
+        <label>Photo</label>
+        <img style="max-width: 100%;">
+      </main>
+      <footer>
+        <button>Take a photo</button>
+      </footer>
+    </section>
     <script>
-      var camera = document.querySelector('cordova-camera');
+      var cameraEl = document.querySelector('cordova-camera');
 
-      camera.on('media-changed', function(picture) {
-        document.write('photo');
+      document.querySelector('button').addEventListener('click', cameraEl.photo);
+
+      cameraEl.addEventListener('media-changed', function() {
+        document.querySelector('img').src = cameraEl.media;
       });
-      camera.photo();
     </script>
   </body>
 </html>
