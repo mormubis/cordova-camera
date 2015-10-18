@@ -50,6 +50,13 @@
         type: String
       },
 
+      /* Ready */
+      ready: {
+        notify: true,
+        readOnly: true,
+        reflectToAttribute: true
+      },
+
       /* Quality of the saved image, expressed as a range of 0-100, where 100 is
       typically full resolution with no loss from file compression.
        */

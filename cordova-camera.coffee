@@ -34,6 +34,11 @@ Polymer
       notify: true
       readOnly: yes
       type: String
+    ### Ready ###
+    ready:
+      notify: yes
+      readOnly: yes
+      reflectToAttribute: yes
     ### Quality of the saved image, expressed as a range of 0-100, where 100 is
     typically full resolution with no loss from file compression. ###
     quality:
