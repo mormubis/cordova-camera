@@ -1,36 +1,61 @@
-# cordova-camera
-
-An element providing access to camera for cordova applications.
+_[Demo and API docs](https://adelarosab.github.io/)_
 
 
-## Dependencies
+## &lt;cordova-camera&gt;
 
-Element dependencies are managed via [Bower](http://bower.io/). You can
-install that via:
+`<cordova-camera>` access to camera for cordova applications.
 
-    npm install -g bower
+```html
+<cordova-core
+  allow-edit
+  direction="back"
+  destination="data_url"
+  encoding="png"
+  media="{{picture}}"
+  quality="100"
+  ready
+  save
+  size="100x100"
+></cordova-core>
+```
+### Attributes
 
-Then, go ahead and download the element's dependencies:
+#### destination
 
-    bower install
+Choose the format of the return value ("data_url", "file_uri" Android, "native_uri" iOS).
 
+#### direction
 
-## Playing With Your Element
+Choose the camera to use ("front"- or "back"-facing).
 
-If you wish to work on your element in isolation, we recommend that you use
-[Polyserve](https://github.com/PolymerLabs/polyserve) to keep your element's
-bower dependencies in line. You can install it via:
+#### edit
 
-    npm install -g polyserve
+Allow simple editing of image before selection.
 
-And you can run it via:
+#### encoding
 
-    polyserve
+Choose the returned image file's encoding ("png" or "jpeg").
 
-Once running, you can preview your element at
-`http://localhost:8080/components/cordova-camera/`, where `cordova-camera` is the name of the directory containing it.
+#### media (read-only)
 
+Result media.
 
-## Yeoman support
+#### quality
 
-If you'd like to use Yeoman to scaffold your element that's possible. The official [`generator-polymer`](https://github.com/yeoman/generator-polymer) generator has a [`seed`](https://github.com/yeoman/generator-polymer#seed) subgenerator.
+Quality of the saved image, expressed as a range of 0-100, where 100 is typically full resolution with no loss from file compression.
+
+#### ready (read-only)
+
+Return if cordova deviceready event has been fired.
+
+#### save
+
+Save the image to the photo album on the device after capture.
+
+#### size
+
+Combination of targetWidth and targetHeight properties (i.e.: "100x80", "100", "x80").
+
+#### source
+
+Set the source of the picture ("photolibrary", "camera", "savedphotoalbum").

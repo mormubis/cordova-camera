@@ -5,41 +5,65 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <!-- TITLE -->
-    <title>cordova-camera Demo</title>
-
     <!-- COMPONENT -->
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="../bower_components/font-roboto/roboto.html">
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../cordova-camera.html">
   </head>
   <body unresolved>
     <style>
-      body {
-        font-family: Roboto, sans-serif;
+      * {
+        box-sizing: border-box;
+      }
+
+      button,
+      .image {
+        position: fixed;
+        left: 0;
+        width: 100%;
+      }
+
+      .image {
+        top: 0;
+        height: 90%;
+        padding: 20px;
+        text-align: center;
+      }
+
+      img {
+        border: 2px solid #9e9e9e;
+        border-radius: 2px;
+        max-height: 100%;
+        max-width: 100%;
+      }
+
+      button {
+        border: 0;
+        background-color: #607d8b;
+        color: #fff;
+        height: 10%;
+        top: 90%;
       }
     </style>
+
     <cordova-camera></cordova-camera>
-    <section>
-      <header>
-        <h1>Camera access</h1>
-      </header>
-      <main>
-        <label>Photo</label>
-        <img style="max-width: 100%;">
-      </main>
-      <footer>
-        <button>Take a photo</button>
-      </footer>
-    </section>
+
+    <article class="image">
+      <img>
+    </article>
+    <button>TAKE A PICTURE</button>
+
     <script>
+      var buttonEl = document.querySelector('button');
       var cameraEl = document.querySelector('cordova-camera');
+      var imgEl = document.querySelector('img');
 
-      document.querySelector('button').addEventListener('click', cameraEl.photo);
+      buttonEl.addEventListener('click', cameraEl.photo.bind(cameraEl));
 
-      cameraEl.addEventListener('media-changed', function() {
-        document.querySelector('img').src = cameraEl.media;
-      });
+      cameraEl.addEventListener(
+        'media-changed', function () {
+          imgEl.src = cameraEl.media;
+        }
+      );
     </script>
   </body>
 </html>

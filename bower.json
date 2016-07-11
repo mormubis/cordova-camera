@@ -1,6 +1,6 @@
 {
   "name": "cordova-camera",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "authors": [
     "Adrian de la Rosa <adrian@delarosab.me>"
   ],
@@ -15,11 +15,19 @@
   "main": "cordova-camera.html",
   "license": "https://raw.githubusercontent.com/adelarosab/cordova-camera/master/LICENSE",
   "homepage": "https://github.com/adelarosab/cordova-camera/",
+  "ignore": [
+    "/.*",
+    "/bower.json",
+    "/demo/",
+    "/index.html",
+    "/README.md",
+    "/test/"
+  ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.1.0",
-    "cordova-device": "^1.0.0"
+    "polymer": "^1.6.0",
+    "cordova-core": "^1.1.5"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
+    "iron-component-page": "^1.1.7"
   }
 }

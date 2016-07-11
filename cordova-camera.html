@@ -1,19 +1,25 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../cordova-device/cordova-device.html">
+<link rel="import" href="../cordova-core/cordova-core.html">
 <!--
 An element providing access to camera for cordova applications.
 
 Example:
 
-    <cordova-camera></cordova-camera>
+    <cordova-camera
+      destination="data_url"
+      direction="back"
+      encoding="png"
+      quality="100"
+      source="camera"
+    ></cordova-camera>
 
-@group Seed Elements
+@group Cordova Elements
 @element cordova-camera
 @demo demo/index.html
 -->
 <dom-module id="cordova-camera">
   <template>
-    <cordova-device ready="{{ready}}"></cordova-device>
+    <cordova-core paused="{{_paused}}" ready="{{_ready}}"></cordova-core>
   </template>
+  <script src="cordova-camera.js"></script>
 </dom-module>
-<script src="cordova-camera.js"></script>
