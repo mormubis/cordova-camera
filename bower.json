@@ -4,7 +4,7 @@
   "authors": [
     "Adrian de la Rosa <adrian@delarosab.me>"
   ],
-  "description": "An element providing access to camera for cordova applications.",
+  "description": "An element providing an interface for taking pictures and for choosing images or videos from the system's image library.",
   "keywords": [
     "web-component",
     "web-components",
@@ -25,7 +25,7 @@
   ],
   "dependencies": {
     "polymer": "^1.6.0",
-    "cordova-core": "^1.1.5"
+    "cordova-core": "^1.2.0"
   },
   "devDependencies": {
     "iron-component-page": "^1.1.7"

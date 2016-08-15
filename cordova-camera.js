@@ -4,6 +4,13 @@ Polymer(
   {
     is: 'cordova-camera',
 
+    /**
+     * Fired when an unkown error occured.
+     *
+     * @event error
+     * @event cordova-camera-error
+     */
+
     properties: {
       /**
        * Choose the format of the return value ("data_url", "file_uri"
@@ -89,49 +96,66 @@ Polymer(
     },
 
     _get(media) {
-      if (!this.ready) {
-        return;
+      if (ready) {
+        const Camera = navigator.camera;
+        const DestinationType = Camera.DestinationType;
+        let size = this.size && this.size.split && this.size.split('x') || [];
+        let options = {
+          allowEdit: this.allowEdit,
+          cameraDirection: Camera.Direction[this.direction.toUpperCase()],
+          destinationType: DestinationType[this.destination.toLocaleUpperCase()],
+          encodingType: Camera.EncodingType[this.encoding.toUpperCase()],
+          mediaType: Camera.MediaType[media.toUpperCase()],
+          quality: this.quality,
+          saveToPhotoAlbum: this.save,
+          sourceType: Camera.PictureSourceType[this.source.toUpperCase()],
+          targetHeight: size[1],
+          targetWidth: size[0]
+        };
+
+        Camera.getPicture(
+          (media) => {
+            const DATA_URL = DestinationType['DATA_URL'];
+
+            if (options.destinationType === DATA_URL) {
+              media = `data:image/${this.encoding};base64,` + media;
+            }
+
+            this._setMedia(media);
+          },
+          this._onError.bind(this),
+          options
+        );
       }
-
-      const Camera = navigator.camera;
-      const DestinationType = Camera.DestinationType;
-      let size = this.size && this.size.split && this.size.split('x') || [];
-      let options = {
-        allowEdit: this.allowEdit,
-        cameraDirection: Camera.Direction[this.direction.toUpperCase()],
-        destinationType: DestinationType[this.destination.toLocaleUpperCase()],
-        encodingType: Camera.EncodingType[this.encoding.toUpperCase()],
-        mediaType: Camera.MediaType[media.toUpperCase()],
-        quality: this.quality,
-        saveToPhotoAlbum: this.save,
-        sourceType: Camera.PictureSourceType[this.source.toUpperCase()],
-        targetHeight: size[1],
-        targetWidth: size[0]
-      };
-
-      Camera.getPicture(
-        (media) => {
-          const DATA_URL = DestinationType['DATA_URL'];
-
-          if (options.destinationType === DATA_URL) {
-            media = `data:image/${this.encoding};base64,` + media;
-          }
-
-          this._setMedia(media);
-        },
-        this.fire.bind(this, 'cordova-camera-error'),
-        options
-      );
     },
 
+    _onError() {
+      this.fire('error', ...arguments);
+      this.fire('cordova-camera-error', ...arguments);
+    },
+
+    /**
+     * Join `photo` and `video` methods and let the user decide which kind of
+     * media is going to use.
+     */
     all() {
       this._get('allmedia');
     },
 
+    /**
+     * Takes a photo using the camera, or retrieves a photo from the device's
+     * image gallery. The image is stored into `media` attribute as a
+     * Base64-encoded String, or as the URI for the image file.
+     */
     photo() {
       this._get('picture');
     },
 
+    /**
+     * Takes a video using the camera, or retrieves a video from the device's
+     * video gallery. The image is stored into `media` attribute as the URI
+     * for the video file.
+     */
     video() {
       this._get('video');
     }

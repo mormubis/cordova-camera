@@ -1,15 +1,16 @@
 <!doctype html>
 <html>
   <head>
-    <!-- META -->
+    <link rel="import" href="../cordova-camera.html">
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
 
-    <!-- COMPONENT -->
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="../cordova-camera.html">
+    <title>cordova-core Demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
   </head>
-  <body unresolved>
+  <body>
     <style>
       * {
         box-sizing: border-box;
@@ -53,14 +54,15 @@
     <button>TAKE A PICTURE</button>
 
     <script>
-      var buttonEl = document.querySelector('button');
-      var cameraEl = document.querySelector('cordova-camera');
-      var imgEl = document.querySelector('img');
+      const buttonEl = document.querySelector('button');
+      const cameraEl = document.querySelector('cordova-camera');
+      const imgEl = document.querySelector('img');
 
       buttonEl.addEventListener('click', cameraEl.photo.bind(cameraEl));
 
       cameraEl.addEventListener(
-        'media-changed', function () {
+        'media-changed',
+        function () {
           imgEl.src = cameraEl.media;
         }
       );

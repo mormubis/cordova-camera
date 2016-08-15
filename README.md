@@ -1,12 +1,24 @@
-_[Demo and API docs](https://adelarosab.github.io/)_
+_[Demo and API docs](https://adelarosab.github.io/cordova-camera)_
 
+### &lt;cordova-camera&gt;
+`<cordova-camera>`  provides an interface for taking pictures and for 
+choosing images or videos from the system's image library. 
+status.
 
-## &lt;cordova-camera&gt;
+### Installation
+In your `www` project:
+```bash
+bower install --save cordova-camera
+```
 
-`<cordova-camera>` access to camera for cordova applications.
+In your `cordova` project:
+```bash
+cordova plugin add cordova-plugin-camera
+```
 
+### Usage
 ```html
-<cordova-core
+<cordova-camera
   allow-edit
   direction="back"
   destination="data_url"
@@ -16,46 +28,14 @@ _[Demo and API docs](https://adelarosab.github.io/)_
   ready
   save
   size="100x100"
-></cordova-core>
+></cordova-camera>
 ```
-### Attributes
 
-#### destination
+`<cordova-camera>` allow to take pictures and videos from the system. `ready` 
+means cordova is fully operative and element is allow to provide pictures and
+ videos.
 
-Choose the format of the return value ("data_url", "file_uri" Android, "native_uri" iOS).
+---
 
-#### direction
-
-Choose the camera to use ("front"- or "back"-facing).
-
-#### edit
-
-Allow simple editing of image before selection.
-
-#### encoding
-
-Choose the returned image file's encoding ("png" or "jpeg").
-
-#### media (read-only)
-
-Result media.
-
-#### quality
-
-Quality of the saved image, expressed as a range of 0-100, where 100 is typically full resolution with no loss from file compression.
-
-#### ready (read-only)
-
-Return if cordova deviceready event has been fired.
-
-#### save
-
-Save the image to the photo album on the device after capture.
-
-#### size
-
-Combination of targetWidth and targetHeight properties (i.e.: "100x80", "100", "x80").
-
-#### source
-
-Set the source of the picture ("photolibrary", "camera", "savedphotoalbum").
+###### Note
+Due to restrictions `ready` attribute is not shown into attributes table.
