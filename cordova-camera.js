@@ -11,6 +11,10 @@ Polymer(
      * @event cordova-camera-error
      */
 
+    hostAttributes: {
+      hidden: true
+    },
+
     properties: {
       /**
        * Choose the format of the return value ("data_url", "file_uri"
