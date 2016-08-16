@@ -1,0 +1,15 @@
+{
+  "name": "cordova-camera",
+  "homepage": "https://github.com/adelarosab/cordova-camera",
+  "authors": [
+    "Adrian de la Rosa <adrian@delarosab.me>"
+  ],
+  "description": "Demo of cordova-camera",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "cordova-camera": "^1.1.2",
+    "iron-component-page": "^1.1.7"
+  }
+}

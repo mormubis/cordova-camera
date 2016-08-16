@@ -1,0 +1,32 @@
+{
+  "name": "cordova-core",
+  "version": "1.2.0",
+  "authors": [
+    "Adrian de la Rosa <adrian@delarosab.me>"
+  ],
+  "description": "An element providing a basic interface about cordova application status.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "cordova",
+    "core"
+  ],
+  "main": "cordova-core.html",
+  "license": "https://raw.githubusercontent.com/adelarosab/cordova-core/master/LICENSE",
+  "homepage": "https://github.com/adelarosab/cordova-core/",
+  "ignore": [
+    "/.*",
+    "/bower.json",
+    "/demo/",
+    "/index.html",
+    "/README.md",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "^1.6.1"
+  },
+  "devDependencies": {
+    "iron-component-page": "^1.1.7"
+  }
+}

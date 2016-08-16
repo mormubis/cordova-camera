@@ -1,0 +1,33 @@
+{
+  "name": "cordova-camera",
+  "version": "1.1.2",
+  "authors": [
+    "Adrian de la Rosa <adrian@delarosab.me>"
+  ],
+  "description": "An element providing an interface for taking pictures and for choosing images or videos from the system's image library.",
+  "keywords": [
+    "web-component",
+    "web-components",
+    "polymer",
+    "cordova",
+    "camera"
+  ],
+  "main": "cordova-camera.html",
+  "license": "https://raw.githubusercontent.com/adelarosab/cordova-camera/master/LICENSE",
+  "homepage": "https://github.com/adelarosab/cordova-camera/",
+  "ignore": [
+    "/.*",
+    "/bower.json",
+    "/demo/",
+    "/index.html",
+    "/README.md",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "^1.6.0",
+    "cordova-core": "^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "^1.1.7"
+  }
+}

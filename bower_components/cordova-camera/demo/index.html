@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="import" href="../cordova-camera.html">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+    <title>cordova-core Demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  </head>
+  <body>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      button,
+      .image {
+        position: fixed;
+        left: 0;
+        width: 100%;
+      }
+
+      .image {
+        top: 0;
+        height: 90%;
+        padding: 20px;
+        text-align: center;
+      }
+
+      img {
+        border: 2px solid #9e9e9e;
+        border-radius: 2px;
+        max-height: 100%;
+        max-width: 100%;
+      }
+
+      button {
+        border: 0;
+        background-color: #607d8b;
+        color: #fff;
+        height: 10%;
+        top: 90%;
+      }
+    </style>
+
+    <cordova-camera></cordova-camera>
+
+    <article class="image">
+      <img>
+    </article>
+    <button>TAKE A PICTURE</button>
+
+    <script>
+      const buttonEl = document.querySelector('button');
+      const cameraEl = document.querySelector('cordova-camera');
+      const imgEl = document.querySelector('img');
+
+      buttonEl.addEventListener('click', cameraEl.photo.bind(cameraEl));
+
+      cameraEl.addEventListener(
+        'media-changed',
+        function () {
+          imgEl.src = cameraEl.media;
+        }
+      );
+    </script>
+  </body>
+</html>

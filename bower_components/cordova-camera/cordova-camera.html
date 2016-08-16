@@ -1,0 +1,31 @@
+<link href="../polymer/polymer.html"
+  rel="import">
+<link href="../cordova-core/cordova-core.html"
+  rel="import">
+
+<!--
+An element providing an interface for taking pictures and for choosing
+images or videos from the system's image library.
+
+Example:
+
+    <cordova-camera
+      destination="data_url"
+      direction="back"
+      encoding="png"
+      quality="100"
+      source="camera"
+    ></cordova-camera>
+
+@group Cordova Elements
+@element cordova-camera
+@demo demo/index.html
+-->
+<dom-module id="cordova-camera">
+  <template>
+    <cordova-core
+      paused="{{_paused}}"
+      ready="{{_ready}}"></cordova-core>
+  </template>
+  <script src="cordova-camera.js"></script>
+</dom-module>
