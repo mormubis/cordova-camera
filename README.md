@@ -34,6 +34,11 @@ cordova plugin add cordova-plugin-camera
 `<cordova-camera>` allow to take pictures and videos from the system. `ready` 
 means cordova is fully operative and element is allow to provide pictures and
  videos.
+ 
+ There are some special treatments into the different platforms. For example:
+  iOS doesn't allow `file_uri` destination, instead use `native_uri`. 
+  Please take a look the [documentation](http://cordova.apache.org/docs/en/6.x/reference/cordova-plugin-camera/index.html) 
+  for more information.
 
 ---
 
